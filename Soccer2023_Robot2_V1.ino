@@ -90,6 +90,13 @@ void loop() {
     angle = compass.heading();
   }
 
+  if (but[0]) {
+    angle = compass.heading() + 180;
+    if (angle >= 360) {
+      angle -= 360;
+    }
+  }
+
   while (swc[0]) {
     
     /*int lidgol;
