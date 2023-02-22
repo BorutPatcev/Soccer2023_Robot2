@@ -93,9 +93,9 @@ void setupLidars() {
     if (lidar.init()) {
       Serial.print("+ ");
       Bluetooth.print("+ ");
-      lidar.setDistanceMode(VL53L1X::Long);
-      lidar.setMeasurementTimingBudget(20000);
-      lidar.startContinuous(20);
+      lidar.setDistanceMode(VL53L1X::Short);
+      lidar.setMeasurementTimingBudget(50000);
+      lidar.startContinuous(50);
     } else {
       Serial.print("- ");
       Bluetooth.print("- ");
