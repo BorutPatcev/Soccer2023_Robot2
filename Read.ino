@@ -45,7 +45,7 @@ void readLineSensors() {
 
 void readLidars() {
 
-  if (timerLidar + 50 <= millis()) {
+  if (timerLidar + 70 <= millis()) {
     for (int i = 0; i < 8; i++) {
       if (i != 2) {
         selectLidar(i);
@@ -106,8 +106,10 @@ void readCamera() {
 
     ballX = xCam - 160 + camShiftX;
     ballY = yCam;
-
-    if (ballX == -160 && ballY == 0) {
+  /*Bluetooth.print(ballX);
+  Bluetooth.print(" ");
+  Bluetooth.println(ballY);*/
+    if (ballX == -160 + camShiftX && ballY == 0) {
       seeBall = false;
     } else {
       seeBall = true;

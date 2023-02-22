@@ -21,14 +21,15 @@ int motorPins[4][3] = {{27,8,7},{24,0,1},{25,2,3},{26,4,5}};
 int reverseMotor[4] = {1,1,1,1};
 int speedLevel[4] = {1,0,0,1};
 
-const float corrConst = 1.5;
-const float ballConst = 2;
-const float backConst = 10;
+const float corrConst = 2.5;
+const float ballConst = 2.1;
+const float backConst = 18;
 float angle;
 
-int speed = 35;
+int speed = 30;
 int maxSpeed = 40;
-int speedBack = 20;
+int speedBack = 25;
+int speedLine = 30;
 
 int ballX = 0;
 int ballY = 0;
@@ -91,7 +92,7 @@ void loop() {
 
   while (swc[0]) {
     
-    int lidgol;
+    /*int lidgol;
     
     readAll();
     motorsOn();
@@ -124,36 +125,49 @@ void loop() {
       } else {
         go(speed - int(abs((ballX)/10)),(ballX) / 2, calculateCorrection());
       }
-    }
+    }*/
+    motorsOn();
+    readAll();
 
-    /*front = (lid[1] < disFront);
+    front = (lid[1] < disFront);
     left = (lid[0] < disLeft) || (lid[7] < disLeft);
     right = (lid[3] < disRight) || (lid[4] < disRight);
     back = (lid[5] < disBack) || (lid[6] < disBack);
 
     diffLR = int((lid[0] + lid[8]) / 2) - int((lid[3] + lid[4]) / 2);
 
+    //Bluetooth.println(seeBall);
+
     if (seeBall) {
-      if (line && (front || (left && ballX < 0) || (right && ballX > 0))) {
-        go(0,0,calculateCorrection());
+      if (line) {
+        if (front) {
+          go(speedLine,-180,calculateCorrection());
+        } else if (left && ballX < 0) {
+          go(speedLine,90,calculateCorrection());
+        } else if (right && ballX > 0) {
+          go(speedLine,-90,calculateCorrection());
+        } else {
+          go(speed, ballX / ballConst, calculateCorrection());
+        }
       } else {
         go(speed, ballX / ballConst, calculateCorrection());
       }
     } else {
       if (back) {
-        if (diffLR > centerLimit) {
+        /*if (diffLR > centerLimit) {
           go(speedBack, -70, calculateCorrection());
         } else if (diffLR < -centerLimit) {
           go(speedBack, 70, calculateCorrection());
         } else {
           go(0,0,calculateCorrection());
-        }
+        }*/
+        go(0,0,calculateCorrection());
       } else {
         directionBack = 180 + int(diffLR / backConst);
         if (directionBack > 180) directionBack -= 360;
         go(speedBack, directionBack, calculateCorrection());
       }
-    }*/
+    }
   }
   
   motorsOff();
